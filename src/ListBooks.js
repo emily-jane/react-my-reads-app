@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import BookItem from './BookItem.js'
 
@@ -20,27 +21,35 @@ class ListBooks extends Component {
     }
 
     return (
-      <div className="list-books-content">
-        <div className="bookshelf">
-          <h2 className="bookshelf-title">Currently Reading</h2>
-          <BookItem
-            books={currentlyReadingBooks}
-            updateBookshelf={updateBookshelf}
-          />
+      <div className="list-books">
+        <div className="list-books-title">
+          <h1>MyReads</h1>
         </div>
-        <div className="bookshelf">
-          <h2 className="bookshelf-title">Want to Read</h2>
-          <BookItem
-            books={wantToRead}
-            updateBookshelf={updateBookshelf}
-          />
+        <div className="list-books-content">
+          <div className="bookshelf">
+            <h2 className="bookshelf-title">Currently Reading</h2>
+            <BookItem
+              books={currentlyReadingBooks}
+              updateBookshelf={updateBookshelf}
+            />
+          </div>
+          <div className="bookshelf">
+            <h2 className="bookshelf-title">Want to Read</h2>
+            <BookItem
+              books={wantToRead}
+              updateBookshelf={updateBookshelf}
+            />
+          </div>
+          <div className="bookshelf">
+            <h2 className="bookshelf-title">Read</h2>
+            <BookItem
+              books={read}
+              updateBookshelf={updateBookshelf}
+            />
+          </div>
         </div>
-        <div className="bookshelf">
-          <h2 className="bookshelf-title">Read</h2>
-          <BookItem
-            books={read}
-            updateBookshelf={updateBookshelf}
-          />
+        <div className="open-search">
+          <Link to="/create">Add a book</Link>
         </div>
       </div>
     )

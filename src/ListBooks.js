@@ -28,24 +28,30 @@ class ListBooks extends Component {
         <div className="list-books-content">
           <div className="bookshelf">
             <h2 className="bookshelf-title">Currently Reading</h2>
-            <BookItem
-              books={currentlyReadingBooks}
-              updateBookshelf={updateBookshelf}
-            />
+            <div className="bookshelf-books">
+              <BookItem
+                books={currentlyReadingBooks}
+                updateBookshelf={updateBookshelf}
+              />
+            </div>
           </div>
           <div className="bookshelf">
             <h2 className="bookshelf-title">Want to Read</h2>
-            <BookItem
-              books={wantToRead}
-              updateBookshelf={updateBookshelf}
-            />
+            <div className="bookshelf-books">
+              <BookItem
+                books={wantToRead}
+                updateBookshelf={updateBookshelf}
+              />
+            </div>
           </div>
           <div className="bookshelf">
             <h2 className="bookshelf-title">Read</h2>
-            <BookItem
-              books={read}
-              updateBookshelf={updateBookshelf}
-            />
+            <div className="bookshelf-books">
+              <BookItem
+                books={read}
+                updateBookshelf={updateBookshelf}
+              />
+            </div>
           </div>
         </div>
         <div className="open-search">

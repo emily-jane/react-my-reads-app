@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 
 class SearchBook extends Component {
   static PropTypes = {
+    books: PropTypes.array.isRequired,
     updateBookshelf: PropTypes.func.isRequired
   }
 
@@ -17,13 +18,27 @@ class SearchBook extends Component {
   updateSearchTerm = (searchTerm) => {
     this.setState({searchTerm})
     BooksAPI.search(searchTerm, 20).then((results) => {
-      this.setState({searchResults: results})
+      this.setState({searchResults: this.addShelves(results)})
+    })
+  }
+
+  addShelves = (results) => {
+    return results.map((searchBook) => {
+      let shelfIfExists = 'default'
+      this.props.books.map((book) => {
+        if (searchBook.id === book.id) {
+          shelfIfExists = book.shelf
+          return searchBook
+        }
+      })
+      searchBook.shelf = shelfIfExists
+      return searchBook
     })
   }
 
   render() {
     const { searchTerm, searchResults } = this.state
-    const { updateBookshelf } = this.props
+    const { books, updateBookshelf } = this.props
 
     return (
       <div className="search-books">

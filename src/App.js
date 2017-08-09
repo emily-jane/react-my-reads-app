@@ -34,7 +34,7 @@ class BooksApp extends React.Component {
 
   updateBookshelfState = (updatedBook, shelf) => {
     return this.state.books.map((book) => {
-      if (book === updatedBook) {
+      if (book.id === updatedBook.id) {
         book.shelf = shelf
       }
       return book

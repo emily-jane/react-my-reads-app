@@ -17,9 +17,13 @@ class SearchBook extends Component {
 
   updateSearchTerm = (searchTerm) => {
     this.setState({searchTerm})
-    BooksAPI.search(searchTerm, 20).then((results) => {
-      this.setState({searchResults: this.addShelves(results)})
-    })
+    BooksAPI.search(searchTerm, 20)
+      .then((results) => {
+        this.setState({searchResults: this.addShelves(results)})})
+      .catch((e) => {
+        console.log('No possible search results!')
+        this.setState({searchResults: []})
+      })
   }
 
   addShelves = (results) => {

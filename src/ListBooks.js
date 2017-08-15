@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import BookItem from './BookItem.js'
+import BookShelf from './BookShelf.js'
 
 class ListBooks extends Component {
   static propTypes = {
@@ -9,15 +9,17 @@ class ListBooks extends Component {
     updateBookshelf: PropTypes.func.isRequired
   }
 
+  bookShelfBooks = (shelfType) => {
+    return this.props.books.filter(book => book.shelf === shelfType)
+  }
+
   render() {
     const { books, updateBookshelf } = this.props
 
-    let currentlyReadingBooks, wantToRead, read
-
-    if (books) {
-      currentlyReadingBooks = books.filter(book => book.shelf === 'currentlyReading')
-      wantToRead = books.filter(book => book.shelf === 'wantToRead')
-      read = books.filter(book => book.shelf === 'read')
+    let bookShelves = {
+      currentlyReading: 'Currently Reading',
+      wantToRead: 'Want to Read',
+      read: 'Read'
     }
 
     return (
@@ -26,33 +28,15 @@ class ListBooks extends Component {
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Currently Reading</h2>
-            <div className="bookshelf-books">
-              <BookItem
-                books={currentlyReadingBooks}
+          {Object.keys(bookShelves).map((shelf) =>
+            <div key={shelf}>
+              <BookShelf
+                shelfTitle={bookShelves[shelf]}
+                books={this.bookShelfBooks(shelf)}
                 updateBookshelf={updateBookshelf}
               />
             </div>
-          </div>
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Want to Read</h2>
-            <div className="bookshelf-books">
-              <BookItem
-                books={wantToRead}
-                updateBookshelf={updateBookshelf}
-              />
-            </div>
-          </div>
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Read</h2>
-            <div className="bookshelf-books">
-              <BookItem
-                books={read}
-                updateBookshelf={updateBookshelf}
-              />
-            </div>
-          </div>
+          )}
         </div>
         <div className="open-search">
           <Link to="/create">Add a book</Link>
